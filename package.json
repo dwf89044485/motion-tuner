@@ -1,0 +1,12 @@
+{
+  "name": "motion-tuner",
+  "private": true,
+  "scripts": {
+    "build": "pnpm -r --stream build",
+    "test": "pnpm -r --stream test",
+    "lint": "pnpm -r --stream lint"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
