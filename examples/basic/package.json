@@ -1,0 +1,24 @@
+{
+  "name": "motion-tuner-example-basic",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "motion-tuner-core": "workspace:*",
+    "motion-tuner-react": "workspace:*",
+    "motion-tuner-ui": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^4.5.2",
+    "typescript": "^5.5.0",
+    "vite": "^6.3.5"
+  }
+}
