@@ -19,12 +19,10 @@ export {
 } from "./theme.js";
 export type { MotionTunerTheme, ThemeTokens } from "./theme.js";
 
-// Phase 4 exports (will be added later)
-// export { OverlayLayer } from "./overlay-layer.js";
-// export { Launcher } from "./launcher.js";
-// export { EditorRuntime } from "./editor-runtime.js";
+export { OverlayLayer } from "./overlay-layer.js";
 
-/** Placeholder — Phase 4 will implement */
-export function EditorRuntime() {
-  return null;
-}
+export { Launcher } from "./launcher.js";
+export type { LauncherProps } from "./launcher.js";
+
+export { EditorRuntime } from "./editor-runtime.js";
+export type { EditorRuntimeProps } from "./editor-runtime.js";

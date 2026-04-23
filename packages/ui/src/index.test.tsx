@@ -1,7 +1,7 @@
 import React from "react";
 import { describe, it, expect } from "vitest";
 import { render } from "@testing-library/react";
-import { MotionPanel, Slider, XYPad, getTokens, DARK_TOKENS, LIGHT_TOKENS, EditorRuntime } from "./index.js";
+import { MotionPanel, Slider, XYPad, getTokens, DARK_TOKENS, LIGHT_TOKENS, EditorRuntime, Launcher } from "./index.js";
 import type { MotionParamDef } from "motion-tuner-core";
 
 const TOKENS = getTokens("dark");
@@ -138,8 +138,36 @@ describe("theme", () => {
   });
 });
 
-describe("EditorRuntime placeholder", () => {
-  it("returns null", () => {
-    expect(EditorRuntime()).toBeNull();
+describe("EditorRuntime", () => {
+  it("returns null without Provider", () => {
+    const { container } = render(React.createElement(EditorRuntime));
+    expect(container.innerHTML).toBe("");
+  });
+});
+
+describe("Launcher", () => {
+  it("renders in idle mode", () => {
+    const { getByText } = render(
+      React.createElement(Launcher, {
+        mode: "idle",
+        onStartSelecting: () => {},
+        onReselect: () => {},
+        onExitEditor: () => {},
+      }),
+    );
+    expect(getByText("Motion Tuner")).toBeDefined();
+  });
+
+  it("renders in selecting mode", () => {
+    const { getByText } = render(
+      React.createElement(Launcher, {
+        mode: "selecting",
+        onStartSelecting: () => {},
+        onReselect: () => {},
+        onExitEditor: () => {},
+      }),
+    );
+    expect(getByText("Select a component")).toBeDefined();
+    expect(getByText("Exit")).toBeDefined();
   });
 });
