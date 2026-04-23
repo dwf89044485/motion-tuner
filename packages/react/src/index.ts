@@ -1,53 +1,20 @@
-import React, { createContext, useContext } from "react";
-import type { MotionTargetDef, EditorSessionMode } from "motion-tuner-core";
+// ── Motion Tuner React — Public API ─────────────────────────────
 
-// ── Context ────────────────────────────────────────────────────
+export {
+  MotionTunerProvider,
+  MotionTunerContext,
+  useMotionTunerContext,
+} from "./provider.js";
+export type {
+  MotionTunerProviderProps,
+  MotionTunerContextValue,
+} from "./provider.js";
 
-interface MotionTunerContextValue {
-  enabled: boolean;
-  portalRoot: HTMLElement;
-  zIndexBase: number;
-}
+export { useMotionTuner } from "./use-motion-tuner.js";
+export type {
+  UseMotionTunerOptions,
+  UseMotionTunerResult,
+} from "./use-motion-tuner.js";
 
-const MotionTunerContext = createContext<MotionTunerContextValue | null>(null);
-
-// ── Provider (placeholder — Phase 2 will implement) ────────────
-
-export function MotionTunerProvider(_props: {
-  children: React.ReactNode;
-  enabled?: boolean;
-  portalRoot?: HTMLElement;
-  zIndexBase?: number;
-}) {
-  return null as unknown as React.ReactElement;
-}
-
-// ── Hook (placeholder — Phase 2 will implement) ────────────────
-
-export function useMotionTuner(
-  _id: string,
-  _schema: MotionTargetDef,
-  _options?: { label?: string }
-): {
-  ref: React.RefObject<HTMLElement | null>;
-  config: Record<string, number>;
-  previewState: string | null;
-} {
-  return { ref: { current: null }, config: {}, previewState: null };
-}
-
-// ── Headless controller (placeholder — Phase 2 will implement) ──
-
-export function useEditorController(): {
-  startSelecting: () => void;
-  exitEditor: () => void;
-  resetAll: () => void;
-  mode: EditorSessionMode;
-} {
-  return {
-    startSelecting: () => {},
-    exitEditor: () => {},
-    resetAll: () => {},
-    mode: "idle" as EditorSessionMode,
-  };
-}
+export { useEditorController } from "./use-editor-controller.js";
+export type { EditorController } from "./use-editor-controller.js";
