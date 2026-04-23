@@ -1,5 +1,30 @@
-// ── Motion Tuner UI (placeholder — Phase 3-4 will implement) ───
+// ── Motion Tuner UI — Public API ────────────────────────────────
 
+export { Slider } from "./slider.js";
+export type { SliderProps } from "./slider.js";
+
+export { XYPad } from "./xy-pad.js";
+export type { XYPadProps } from "./xy-pad.js";
+
+export { MotionPanel } from "./motion-panel.js";
+export type { MotionPanelProps } from "./motion-panel.js";
+
+export {
+  getTokens,
+  getStateSelectorTokens,
+  DARK_TOKENS,
+  LIGHT_TOKENS,
+  FONT,
+  MONO_FONT,
+} from "./theme.js";
+export type { MotionTunerTheme, ThemeTokens } from "./theme.js";
+
+// Phase 4 exports (will be added later)
+// export { OverlayLayer } from "./overlay-layer.js";
+// export { Launcher } from "./launcher.js";
+// export { EditorRuntime } from "./editor-runtime.js";
+
+/** Placeholder — Phase 4 will implement */
 export function EditorRuntime() {
   return null;
 }
