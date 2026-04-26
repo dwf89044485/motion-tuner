@@ -32,8 +32,8 @@
     "test:watch": "vitest"
   },
   "peerDependencies": {
-    "motion-tuner-core": "workspace:*",
-    "motion-tuner-react": "workspace:*",
+    "motion-tuner-core": "^0.1.0",
+    "motion-tuner-react": "^0.1.0",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0"
   },
@@ -42,8 +42,8 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "jsdom": "^24.0.0",
-    "motion-tuner-core": "workspace:*",
-    "motion-tuner-react": "workspace:*",
+    "motion-tuner-core": "^0.1.0",
+    "motion-tuner-react": "^0.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tsup": "^8.0.0",
