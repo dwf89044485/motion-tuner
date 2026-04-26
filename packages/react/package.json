@@ -1,6 +1,15 @@
 {
   "name": "motion-tuner-react",
   "version": "0.1.0",
+  "description": "React bindings for Motion Tuner — Provider, useMotionTuner, useEditorController",
+  "license": "MIT",
+  "author": "Joseph Deng",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dwf89044485/motion-tuner.git",
+    "directory": "packages/react"
+  },
+  "keywords": ["motion", "animation", "tuner", "react", "hook"],
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
