@@ -2,7 +2,7 @@
 // One-stop component: drop inside MotionTunerProvider to get
 // the full editing experience (overlay + panel + launcher).
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { useMotionTunerContext } from "motion-tuner-react";
 import { useEditorController } from "motion-tuner-react";
 import { OverlayLayer } from "./overlay-layer.js";
@@ -18,6 +18,24 @@ export function EditorRuntime({ theme = "dark" }: EditorRuntimeProps) {
   const ctx = useMotionTunerContext();
   const ctrl = useEditorController();
   const [panelTheme, setPanelTheme] = useState<MotionTunerTheme>(theme);
+
+  // Force re-render when store changes (so the panel reads the latest config)
+  const [, setStoreRev] = useState(0);
+  useEffect(() => {
+    if (!ctx || !ctx.enabled) return;
+    const { tuner } = ctx;
+    const bump = () => setStoreRev((r) => r + 1);
+    tuner.bus.on("change", bump);
+    tuner.bus.on("state-change", bump);
+    tuner.bus.on("target-registered", bump);
+    tuner.bus.on("target-unregistered", bump);
+    return () => {
+      tuner.bus.off("change", bump);
+      tuner.bus.off("state-change", bump);
+      tuner.bus.off("target-registered", bump);
+      tuner.bus.off("target-unregistered", bump);
+    };
+  }, [ctx, ctx?.enabled]);
 
   if (!ctx || !ctx.enabled) return null;
 
