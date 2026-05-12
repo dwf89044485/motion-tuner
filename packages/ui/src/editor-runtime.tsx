@@ -12,9 +12,12 @@ import type { MotionTunerTheme } from "./theme.js";
 
 export interface EditorRuntimeProps {
   theme?: MotionTunerTheme;
+  /** Show the camelCase param key next to each slider label (default true).
+   * Set false for 纯中文 label experience. */
+  showKeyName?: boolean;
 }
 
-export function EditorRuntime({ theme = "dark" }: EditorRuntimeProps) {
+export function EditorRuntime({ theme = "dark", showKeyName = true }: EditorRuntimeProps) {
   const ctx = useMotionTunerContext();
   const ctrl = useEditorController();
   const [panelTheme, setPanelTheme] = useState<MotionTunerTheme>(theme);
@@ -63,6 +66,14 @@ export function EditorRuntime({ theme = "dark" }: EditorRuntimeProps) {
     [tuner, activeId],
   );
 
+  const handleSliderCommit = useCallback(
+    (key: string, value: number) => {
+      if (!activeId) return;
+      tuner.bus.emit("param-commit", { targetId: activeId, key, value });
+    },
+    [tuner, activeId],
+  );
+
   const handleStateChange = useCallback(
     (state: string) => {
       if (!activeId) return;
@@ -98,11 +109,13 @@ export function EditorRuntime({ theme = "dark" }: EditorRuntimeProps) {
       {/* Panel — only in editing mode with active target */}
       {ctrl.mode === "editing" && activeEntry && (
         <MotionPanel
+          targetId={activeId!}
           targetLabel={activeEntry.def.label}
           schema={activeEntry.def.schema}
           config={tuner.store.getConfig(activeId!)}
           defaultConfig={activeEntry.def.defaultConfig}
           onChange={handlePanelChange}
+          onSliderCommit={handleSliderCommit}
           stateOptions={activeEntry.def.states}
           selectedState={
             tuner.store.getPreviewState(activeId!) ??
@@ -112,6 +125,7 @@ export function EditorRuntime({ theme = "dark" }: EditorRuntimeProps) {
           theme={panelTheme}
           onClose={handleClose}
           portalRoot={ctx.portalRoot}
+          showKeyName={showKeyName}
         />
       )}
 

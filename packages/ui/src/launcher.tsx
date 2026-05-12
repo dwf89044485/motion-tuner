@@ -231,7 +231,7 @@ export function Launcher({
     content = (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", gap: 4 }}>
         <IconPointerClick size={16} />
-        Motion Tuner
+        动效编辑
       </div>
     );
   } else if (isIdle && expanded) {
@@ -243,7 +243,7 @@ export function Launcher({
           onMouseEnter={(e) => (e.currentTarget.style.background = hoverBg)}
           onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
         >
-          <IconSparkles /> Motion Edit
+          <IconSparkles /> 开始编辑
         </button>
         <span style={dividerStyle} />
         <button
@@ -259,14 +259,14 @@ export function Launcher({
   } else if (isSelecting) {
     content = (
       <>
-        <span style={{ ...btnStyle(true), cursor: "default" }}>Select a component</span>
+        <span style={{ ...btnStyle(true), cursor: "default" }}>选择组件</span>
         <button
           style={btnStyle()}
           onClick={onExitEditor}
           onMouseEnter={(e) => (e.currentTarget.style.background = hoverBg)}
           onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
         >
-          <IconLogOut /> Exit
+          <IconLogOut /> 退出
         </button>
       </>
     );
@@ -279,7 +279,7 @@ export function Launcher({
           onMouseEnter={(e) => (e.currentTarget.style.background = hoverBg)}
           onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
         >
-          <IconPointerClick size={14} /> Reselect
+          <IconPointerClick size={14} /> 重选
         </button>
         <button
           style={btnStyle()}
@@ -287,17 +287,17 @@ export function Launcher({
           onMouseEnter={(e) => (e.currentTarget.style.background = hoverBg)}
           onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
         >
-          <IconLogOut /> Exit
+          <IconLogOut /> 退出
         </button>
         {changeCount > 0 && (
           <>
             <span style={dividerStyle} />
-            <span style={{ ...btnStyle(true), cursor: "default" }}>{changeCount} changes</span>
+            <span style={{ ...btnStyle(true), cursor: "default" }}>{changeCount} 处修改</span>
             {onCopyChanges && (
               <button
                 style={iconBtnStyle}
                 onClick={onCopyChanges}
-                title="Copy changes"
+                title="复制代码"
                 onMouseEnter={(e) => (e.currentTarget.style.background = hoverBg)}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
               >

@@ -15,6 +15,8 @@ import {
 } from "./theme.js";
 
 export interface MotionPanelProps {
+  /** Target id (used in copy output for AI to grep & locate the schema) */
+  targetId?: string;
   targetLabel: string;
   schema: MotionParamDef[];
   config: Record<string, number>;
@@ -30,9 +32,13 @@ export interface MotionPanelProps {
   portalRoot?: HTMLElement | null;
   /** Initial position. Default: { top: 20, right: 20 } */
   initialPosition?: { top: number; left: number };
+  /** Show the camelCase param key next to each slider label (default true).
+   * Set false for 纯中文 label experience. */
+  showKeyName?: boolean;
 }
 
 export function MotionPanel({
+  targetId,
   targetLabel,
   schema,
   config,
@@ -46,6 +52,7 @@ export function MotionPanel({
   onClose,
   portalRoot,
   initialPosition,
+  showKeyName = true,
 }: MotionPanelProps) {
   const tokens = getTokens(theme);
   const stateTokens = getStateSelectorTokens(theme);
@@ -107,6 +114,13 @@ export function MotionPanel({
     const init: Record<string, boolean> = {};
     for (const p of schema) {
       if (!(p.group in init)) init[p.group] = true;
+    }
+    // 默认展开「基础」分组；若不存在则展开首个分组
+    if ("基础" in init) {
+      init["基础"] = false;
+    } else {
+      const first = Object.keys(init)[0];
+      if (first) init[first] = false;
     }
     return init;
   });
@@ -197,10 +211,21 @@ export function MotionPanel({
   const handleCopy = () => {
     if (!hasAnyChange) return;
     const changed = schema.filter((p) => config[p.key] !== defaultConfig[p.key]);
-    const lines = changed.map(
-      (p) => `  ${p.key}: ${defaultConfig[p.key]} \u2192 ${config[p.key]}  // ${p.label}`,
-    );
-    const text = `Motion changes for "${targetLabel}":\n\n{\n${lines.join(",\n")}\n}`;
+
+    // AI-friendly format: directly paste-able TS object that maps to defaultConfig.
+    // Includes target id (for grep) + label + comments with old values.
+    const idLine = targetId ? ` (id: "${targetId}")` : "";
+    const lines = changed.map((p) => {
+      const oldV = defaultConfig[p.key];
+      const newV = config[p.key];
+      // pad key for visual alignment
+      return `  ${p.key}: ${newV},  // ${p.label} · was ${oldV}`;
+    });
+    const text =
+      `// motion-tuner: ${changed.length} change(s) for "${targetLabel}"${idLine}\n` +
+      `// Apply to defaultConfig (find the MotionTargetDef whose id matches above):\n` +
+      `{\n${lines.join("\n")}\n}\n`;
+
     navigator.clipboard.writeText(text);
     setCopyFeedback("copy");
     setTimeout(() => setCopyFeedback(null), 1500);
@@ -255,6 +280,7 @@ export function MotionPanel({
           onChange={handleSliderChange}
           onCommit={onSliderCommit}
           onReset={handleResetParam}
+          showKeyName={showKeyName}
         />
       </React.Fragment>
     );
@@ -340,7 +366,7 @@ export function MotionPanel({
       {stateOptions && selectedState !== undefined && onStateChange && (
         <div style={{ display: "flex", flexDirection: "column", gap: 8, padding: "10px 12px", borderBottom: `1px solid ${tokens.divider}` }}>
           <span style={{ fontSize: 11, fontWeight: 600, color: tokens.textTertiary, letterSpacing: "0.02em" }}>
-            Component State
+            组件状态
           </span>
           <div
             style={{
@@ -489,7 +515,7 @@ export function MotionPanel({
               transition: "background 100ms",
             }}
           >
-            {copyFeedback === "reset" ? "\u2713 Reset" : "Reset"}
+            {copyFeedback === "reset" ? "\u2713 已重置" : "重置"}
           </button>
           <button
             onClick={handleCopy}
@@ -514,7 +540,7 @@ export function MotionPanel({
               transition: "background 100ms",
             }}
           >
-            {copyFeedback === "copy" ? "\u2713 Copied" : "Copy"}
+            {copyFeedback === "copy" ? "\u2713 已复制" : "复制代码"}
           </button>
         </div>
       </div>

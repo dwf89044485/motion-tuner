@@ -6,6 +6,9 @@ import type { EditorSessionMode, MotionTargetDef } from "./types.js";
 export interface EventMap {
   /** A param value changed */
   change: { targetId: string; key: string; value: number };
+  /** A param change was committed (e.g. slider pointerup) — consumers may
+   * use this to trigger a one-shot animation preview */
+  "param-commit": { targetId: string; key: string; value: number };
   /** Preview state changed for a target */
   "state-change": { targetId: string; state: string };
   /** A target was selected in selecting mode */

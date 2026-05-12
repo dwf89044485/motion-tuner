@@ -15,6 +15,11 @@ export interface UseMotionTunerResult {
   config: Record<string, number>;
   /** Current preview state (e.g. "hover", "active") — null if none */
   previewState: string | null;
+  /** Increments each time a slider is committed (e.g. pointerup on slider).
+   * Subscribe to this in useEffect to trigger a one-shot animation preview.
+   * Format: `${key}:${value}:${seq}` — seq ensures unique values even for
+   * same key+value successive commits. */
+  lastCommit: string | null;
 }
 
 /**
@@ -36,6 +41,8 @@ export function useMotionTuner(
   const [previewState, setPreviewState] = useState<string | null>(
     () => schema.defaultState ?? null,
   );
+  const [lastCommit, setLastCommit] = useState<string | null>(null);
+  const commitSeqRef = useRef(0);
 
   // Register / unregister with core
   useEffect(() => {
@@ -60,12 +67,20 @@ export function useMotionTuner(
       setPreviewState(data.state);
     };
 
+    const handleCommit = (data: { targetId: string; key: string; value: number }) => {
+      if (data.targetId !== id) return;
+      commitSeqRef.current += 1;
+      setLastCommit(`${data.key}:${data.value}:${commitSeqRef.current}`);
+    };
+
     tuner.bus.on("change", handleChange);
     tuner.bus.on("state-change", handleStateChange);
+    tuner.bus.on("param-commit", handleCommit);
 
     return () => {
       tuner.bus.off("change", handleChange);
       tuner.bus.off("state-change", handleStateChange);
+      tuner.bus.off("param-commit", handleCommit);
       unregister();
     };
   }, [ctx, ctx?.enabled, id, schema]);
@@ -86,5 +101,5 @@ export function useMotionTuner(
   const callbackRef = useRef<HTMLElement | null>(null);
   callbackRef.current = ref.current;
 
-  return { ref, config, previewState };
+  return { ref, config, previewState, lastCommit };
 }

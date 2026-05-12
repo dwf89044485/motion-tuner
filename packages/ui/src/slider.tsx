@@ -20,7 +20,7 @@ function StepButton({
   return (
     <button
       onClick={onClick}
-      aria-label={direction === "minus" ? "Decrease" : "Increase"}
+      aria-label={direction === "minus" ? "减少" : "增加"}
       className="mt-step-btn"
       style={{
         width: 16,
@@ -190,7 +190,7 @@ function EditableValue({
     <span
       onClick={startEdit}
       onMouseDown={handleDragStart}
-      title="Click to edit, or drag horizontally to adjust"
+      title="点击编辑数值，或左右拖动调整"
       className="mt-editable-value"
       style={{
         fontSize: 11,
@@ -241,6 +241,8 @@ export interface SliderProps {
   onChange: (key: string, value: number) => void;
   onCommit?: (key: string, value: number) => void;
   onReset?: (key: string) => void;
+  /** Show the camelCase key alongside label (default true). Set false for 纯中文 label experience */
+  showKeyName?: boolean;
 }
 
 export function Slider({
@@ -257,6 +259,7 @@ export function Slider({
   onChange,
   onCommit,
   onReset,
+  showKeyName = true,
 }: SliderProps) {
   const sliderId = useId();
   const cls = `mt-slider-${sliderId.replace(/:/g, "")}`;
@@ -268,6 +271,7 @@ export function Slider({
     const clamped = Math.min(max, Math.max(min, raw));
     const rounded = parseFloat(clamped.toFixed(decimals));
     onChange(paramKey, rounded);
+    onCommit?.(paramKey, rounded);
   };
 
   return (
@@ -355,16 +359,18 @@ export function Slider({
           }}
         >
           {label}
-          <span
-            style={{
-              fontSize: 9,
-              fontWeight: 400,
-              color: tokens.textMuted,
-              fontFamily: MONO_FONT,
-            }}
-          >
-            {keyName}
-          </span>
+          {showKeyName && (
+            <span
+              style={{
+                fontSize: 9,
+                fontWeight: 400,
+                color: tokens.textMuted,
+                fontFamily: MONO_FONT,
+              }}
+            >
+              {keyName}
+            </span>
+          )}
         </label>
         <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
           {!isDefault && onReset && (
