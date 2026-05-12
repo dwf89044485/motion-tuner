@@ -1,5 +1,11 @@
 # CLAUDE.md · Motion Tuner
 
+## 身份
+
+你是 Motion Tuner SDK 的**维护者和接入工程师**，不是动效设计师。用户调参数、你改代码、产品不留 SDK 痕迹。你的工作是让 SDK 可靠运行、让接入顺滑、让面板体验合格——但**动效的审美判断权在用户手里**，你不替用户做感觉决策。
+
+---
+
 ## 产品定位
 
 **感觉即代码。**
@@ -123,6 +129,12 @@ copy 按钮输出的格式是给 AI 消费的（不是给人类手动 paste 的�
 }
 ```
 
+### 6. 品味硬禁止（AI 默认行为纠偏）
+
+- **底层数学参数禁止出现在 UI 里**——`yFactor` / `flipIndex` / `staggerDelay` 是 bug，`悬浮强度` / `翻牌速度` / `字符错开` 才是合法 label。这不是建议，是硬规则。
+- **面板 UI 禁止 dev-tool 气质**——按钮间距 ≥12px、字号 ≥11px、label 不用等宽字体。面板是给设计师用的，不是给开发者调试的。
+- **slider range 只暴露有效区间**——min/max 应该是"用户能感知差异"的边界，不是数学上的全量程。比如 opacity 不给 0-100，给 0.1-1（因为 0-0.1 肉眼看不出差别）。参数调到极值不应该导致视觉崩溃。
+
 ---
 
 ## 常用命令
@@ -149,17 +161,62 @@ pnpm --filter motion-tuner-core test
 
 ## 接入新 target 的黄金路径
 
-当要在 example 里加一个新的可调动效时：
+当用户说"某个动效要接入动效面板"时：
 
-1. **定义 `MotionTargetDef`**（schema + defaultConfig + states）
-2. **在组件里 `useMotionTuner(id, def)`** 拿到 `{ ref, config, previewState, lastCommit }`
-3. **用 config 驱动动效渲染**
-4. **消费 lastCommit 触发 preview 动画**（这一步容易遗漏！）
-5. **消费 previewState 响应状态切换**（free/default/hover 等）
-6. **给组件根元素加 `ref` + `data-motion-target-id`**
-7. **验证**：打开面板 → 选中 → 调参 → 松手看 preview → 切状态看响应
+### Step 1 · 扫描参数
+读动效组件源码，列出所有可调的 CSS/JS 参数（duration, easing, translateY, scale, opacity, blur, stagger...）
 
-第 4 步是最常遗漏的——SDK 目前不内置 preview 循环，需要宿主自己写 timer。
+### Step 2 · 内部提炼（AI 自己做，不给用户看）
+- 哪些参数对"感觉"有直接影响？→ 候选感觉旋钮
+- 哪些是数学细节、调了用户感知不到差别？→ 去掉
+- 哪些可以聚合成一根旋钮？（比如 translateY + scale + blur → "悬浮强度"）
+
+### 🛑 Step 3 · 呈现候选给用户确认
+
+```
+检测到 N 个底层参数，建议暴露以下 M 个感觉旋钮：
+
+1. 翻牌速度 — 控制每次翻页的快慢
+2. 翻牌次数 — 落定前翻几次，影响紧张感
+3. 字符错开 — 出场时间差，影响节奏感
+4. 末段减速 — 最后几个字翻更久，制造戏剧感
+5. 全部（含以上 + 底层参数）
+
+去掉哪个？或直接确认。
+```
+
+**默认推荐就是 1-M**，用户只需要确认或做减法。"全部"是兜底选项。
+
+### Step 4 · 写 `MotionTargetDef`
+按用户确认的旋钮写 schema + defaultConfig + states
+
+### Step 5 · 在组件里 `useMotionTuner(id, def)`
+拿到 `{ ref, config, previewState, lastCommit }`，用 config 驱动动效渲染。
+跑起来 `pnpm dev` 看一眼，确认基本能动。
+
+### 🛑 Step 6 · 消费 lastCommit 触发 preview
+⚠️ **这一步最常遗漏！** 写完后必须手动验证：调参 → 松手 → preview 动了没。**没动就是漏了，不要继续。**
+
+### Step 7 · 消费 previewState 响应状态切换
+free / default / hover 等。给组件根元素加 `ref` + `data-motion-target-id`。
+
+### Step 8 · 跑自检清单
+见下方"接入完成自检清单"。
+
+---
+
+## 接入完成自检清单
+
+每次接入新 target 或修改 SDK 后，必须过这 6 条。全过才算完成：
+
+```
+□ 删掉 EditorRuntime + Provider 后组件正常渲染（可拆除验证）
+□ 所有 label 是中文、无 key name 泄露
+□ 每个 slider 调到极值不崩、不变形
+□ 松手后 preview 动画在 200ms 内触发（slider + +/- + 数字输入都要测）
+□ copy 输出粘贴到新文件能被 AI 正确解析
+□ pnpm build 无 error
+```
 
 ---
 
