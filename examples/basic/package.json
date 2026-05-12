@@ -8,11 +8,12 @@
     "build": "vite build"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "framer-motion": "^12.38.0",
     "motion-tuner-core": "workspace:*",
     "motion-tuner-react": "workspace:*",
-    "motion-tuner-ui": "workspace:*"
+    "motion-tuner-ui": "workspace:*",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/react": "^19.2.14",
