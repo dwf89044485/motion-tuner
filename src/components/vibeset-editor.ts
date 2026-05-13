@@ -11,7 +11,7 @@ import "./vibeset-panel.js";
 @customElement("vibeset-editor")
 export class VibesetEditor extends LitElement {
   @property({ reflect: true }) theme: "dark" | "light" = "dark";
-  @property({ type: Boolean, attribute: "show-key-name" }) showKeyName = false;
+  @property({ type: Boolean, attribute: "show-key-name" }) showKeyName = true;
 
   /** Injected from outside (e.g. React binding sets this as a JS property) */
   @property({ attribute: false }) store: Vibeset | null = null;

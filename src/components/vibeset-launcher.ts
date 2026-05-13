@@ -253,7 +253,7 @@ export class VibesetLauncher extends LitElement {
     if (isIdle && this._expanded) {
       return html`
         <button style=${styleMap(this._btnStyles())}
-          @click=${() => this._fire("vibeset-mode-change", { mode: "selecting" })}
+          @click=${() => this._fire("vibeset-start-selecting")}
           @mouseenter=${this._hoverOn} @mouseleave=${this._hoverOff}>
           ${iconSparkles()} 开始编辑
         </button>
@@ -269,7 +269,7 @@ export class VibesetLauncher extends LitElement {
       return html`
         <span style=${styleMap({ ...this._btnStyles(true), cursor: "default" })}>选择组件</span>
         <button style=${styleMap(this._btnStyles())}
-          @click=${() => this._fire("vibeset-mode-change", { mode: "idle" })}
+          @click=${() => this._fire("vibeset-exit-editor")}
           @mouseenter=${this._hoverOn} @mouseleave=${this._hoverOff}>
           ${iconLogOut()} 退出
         </button>`;
@@ -278,12 +278,12 @@ export class VibesetLauncher extends LitElement {
     if (isEditing) {
       return html`
         <button style=${styleMap(this._btnStyles())}
-          @click=${() => this._fire("vibeset-mode-change", { mode: "reselect" })}
+          @click=${() => this._fire("vibeset-reselect")}
           @mouseenter=${this._hoverOn} @mouseleave=${this._hoverOff}>
           ${iconPointerClick(14)} 重选
         </button>
         <button style=${styleMap(this._btnStyles())}
-          @click=${() => this._fire("vibeset-mode-change", { mode: "idle" })}
+          @click=${() => this._fire("vibeset-exit-editor")}
           @mouseenter=${this._hoverOn} @mouseleave=${this._hoverOff}>
           ${iconLogOut()} 退出
         </button>
@@ -291,7 +291,7 @@ export class VibesetLauncher extends LitElement {
           ${this._divider()}
           <span style=${styleMap({ ...this._btnStyles(true), cursor: "default" })}>${this.changeCount} 处修改</span>
           <button style=${styleMap(this._iconBtnStyles())} title="复制代码"
-            @click=${() => this._fire("vibeset-copy")}
+            @click=${() => this._fire("vibeset-copy-changes")}
             @mouseenter=${this._hoverOn} @mouseleave=${this._hoverOff}>
             ${iconCopy()}
           </button>
