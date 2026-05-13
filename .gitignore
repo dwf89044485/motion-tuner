@@ -3,3 +3,7 @@ dist/
 .turbo/
 *.tsbuildinfo
 .DS_Store
+
+# Internal docs (not for public)
+CLAUDE.md
+docs/PRODUCT_VISION.md
