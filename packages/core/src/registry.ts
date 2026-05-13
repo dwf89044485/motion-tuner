@@ -1,4 +1,4 @@
-// ── Motion Tuner Core — TargetRegistry ──────────────────────────
+// ── Vibeset Core — TargetRegistry ──────────────────────────
 
 import type { MotionTargetDef } from "./types.js";
 import type { EventBus } from "./events.js";

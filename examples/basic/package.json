@@ -1,5 +1,5 @@
 {
-  "name": "motion-tuner-example-basic",
+  "name": "vibeset-example-basic",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "framer-motion": "^12.38.0",
-    "motion-tuner-core": "workspace:*",
-    "motion-tuner-react": "workspace:*",
-    "motion-tuner-ui": "workspace:*",
+    "vibeset-core": "workspace:*",
+    "vibeset-react": "workspace:*",
+    "vibeset-ui": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

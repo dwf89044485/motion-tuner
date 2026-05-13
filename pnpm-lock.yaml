@@ -13,21 +13,21 @@ importers:
       framer-motion:
         specifier: ^12.38.0
         version: 12.38.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      motion-tuner-core:
-        specifier: workspace:*
-        version: link:../../packages/core
-      motion-tuner-react:
-        specifier: workspace:*
-        version: link:../../packages/react
-      motion-tuner-ui:
-        specifier: workspace:*
-        version: link:../../packages/ui
       react:
         specifier: ^19.0.0
         version: 19.2.5
       react-dom:
         specifier: ^19.0.0
         version: 19.2.5(react@19.2.5)
+      vibeset-core:
+        specifier: workspace:*
+        version: link:../../packages/core
+      vibeset-react:
+        specifier: workspace:*
+        version: link:../../packages/react
+      vibeset-ui:
+        specifier: workspace:*
+        version: link:../../packages/ui
     devDependencies:
       '@types/react':
         specifier: ^19.2.14
@@ -71,9 +71,6 @@ importers:
       jsdom:
         specifier: ^24.0.0
         version: 24.1.3
-      motion-tuner-core:
-        specifier: ^0.1.0
-        version: 0.1.0
       react:
         specifier: ^19.0.0
         version: 19.2.5
@@ -86,6 +83,9 @@ importers:
       typescript:
         specifier: ^5.5.0
         version: 5.9.3
+      vibeset-core:
+        specifier: workspace:*
+        version: link:../core
       vitest:
         specifier: ^2.0.0
         version: 2.1.9(jsdom@24.1.3)
@@ -104,12 +104,6 @@ importers:
       jsdom:
         specifier: ^24.0.0
         version: 24.1.3
-      motion-tuner-core:
-        specifier: ^0.1.0
-        version: 0.1.0
-      motion-tuner-react:
-        specifier: ^0.1.0
-        version: 0.1.0(motion-tuner-core@0.1.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       react:
         specifier: ^19.0.0
         version: 19.2.5
@@ -122,6 +116,12 @@ importers:
       typescript:
         specifier: ^5.5.0
         version: 5.9.3
+      vibeset-core:
+        specifier: workspace:*
+        version: link:../core
+      vibeset-react:
+        specifier: workspace:*
+        version: link:../react
       vitest:
         specifier: ^2.0.0
         version: 2.1.9(jsdom@24.1.3)
@@ -1269,16 +1269,6 @@ packages:
 
   motion-dom@12.38.0:
     resolution: {integrity: sha512-pdkHLD8QYRp8VfiNLb8xIBJis1byQ9gPT3Jnh2jqfFtAsWUA3dEepDlsWe/xMpO8McV+VdpKVcp+E+TGJEtOoA==}
-
-  motion-tuner-core@0.1.0:
-    resolution: {integrity: sha512-njPEjcwxqzVsFFOJXyK4Bh/UADhzdJqV66zPnRUNV+fZ87xeYF9l+YMMhHbPFZqon8WWTCO7YSAGTYzTcnR12g==}
-
-  motion-tuner-react@0.1.0:
-    resolution: {integrity: sha512-tZmO0hUa4/ij3LmYt9btIJGp1CIpehBnOJ6EooKTtGRd8Qnt/je+Qu9EOmnnu93rBxC6/o8CskW3v7uizJqByw==}
-    peerDependencies:
-      motion-tuner-core: ^0.1.0
-      react: '>=17.0.0'
-      react-dom: '>=17.0.0'
 
   motion-utils@12.36.0:
     resolution: {integrity: sha512-eHWisygbiwVvf6PZ1vhaHCLamvkSbPIeAYxWUuL3a2PD/TROgE7FvfHWTIH4vMl798QLfMw15nRqIaRDXTlYRg==}
@@ -2626,14 +2616,6 @@ snapshots:
   motion-dom@12.38.0:
     dependencies:
       motion-utils: 12.36.0
-
-  motion-tuner-core@0.1.0: {}
-
-  motion-tuner-react@0.1.0(motion-tuner-core@0.1.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5):
-    dependencies:
-      motion-tuner-core: 0.1.0
-      react: 19.2.5
-      react-dom: 19.2.5(react@19.2.5)
 
   motion-utils@12.36.0: {}
 

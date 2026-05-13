@@ -1,11 +1,11 @@
 {
-  "name": "motion-tuner",
+  "name": "vibeset",
   "private": true,
   "description": "Motion parameter tuning SDK — real-time animation editing for React components",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dwf89044485/motion-tuner.git"
+    "url": "https://github.com/dwf89044485/vibeset.git"
   },
   "scripts": {
     "build": "pnpm -r --stream build",

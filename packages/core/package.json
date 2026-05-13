@@ -1,12 +1,12 @@
 {
-  "name": "motion-tuner-core",
+  "name": "vibeset-core",
   "version": "0.1.0",
-  "description": "Core logic for Motion Tuner — types, registry, store, state machine, measurement, export",
+  "description": "Core logic for Vibeset — types, registry, store, state machine, measurement, export",
   "license": "MIT",
   "author": "Joseph Deng",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dwf89044485/motion-tuner.git",
+    "url": "https://github.com/dwf89044485/vibeset.git",
     "directory": "packages/core"
   },
   "keywords": [

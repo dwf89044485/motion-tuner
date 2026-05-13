@@ -1,26 +1,26 @@
-// ── Motion Tuner UI — EditorRuntime ─────────────────────────────
-// One-stop component: drop inside MotionTunerProvider to get
+// ── Vibeset UI — EditorRuntime ─────────────────────────────
+// One-stop component: drop inside VibesetProvider to get
 // the full editing experience (overlay + panel + launcher).
 
 import React, { useCallback, useState, useEffect } from "react";
-import { useMotionTunerContext } from "motion-tuner-react";
-import { useEditorController } from "motion-tuner-react";
+import { useVibesetContext } from "vibeset-react";
+import { useEditorController } from "vibeset-react";
 import { OverlayLayer } from "./overlay-layer.js";
 import { Launcher } from "./launcher.js";
 import { MotionPanel } from "./motion-panel.js";
-import type { MotionTunerTheme } from "./theme.js";
+import type { VibesetTheme } from "./theme.js";
 
 export interface EditorRuntimeProps {
-  theme?: MotionTunerTheme;
+  theme?: VibesetTheme;
   /** Show the camelCase param key next to each slider label (default true).
    * Set false for 纯中文 label experience. */
   showKeyName?: boolean;
 }
 
 export function EditorRuntime({ theme = "dark", showKeyName = true }: EditorRuntimeProps) {
-  const ctx = useMotionTunerContext();
+  const ctx = useVibesetContext();
   const ctrl = useEditorController();
-  const [panelTheme, setPanelTheme] = useState<MotionTunerTheme>(theme);
+  const [panelTheme, setPanelTheme] = useState<VibesetTheme>(theme);
 
   // Force re-render when store changes (so the panel reads the latest config)
   const [, setStoreRev] = useState(0);

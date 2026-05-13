@@ -1,4 +1,4 @@
-// ── Motion Tuner UI — XY Pad ────────────────────────────────────
+// ── Vibeset UI — XY Pad ────────────────────────────────────
 // 2D drag control using native pointer events (pointer capture).
 // No framer-motion.
 

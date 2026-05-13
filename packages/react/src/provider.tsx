@@ -1,19 +1,19 @@
-// ── Motion Tuner React — Provider ───────────────────────────────
+// ── Vibeset React — Provider ───────────────────────────────
 
 import React, { createContext, useContext, useEffect, useRef, useMemo } from "react";
-import { createMotionTuner } from "motion-tuner-core";
-import type { MotionTuner } from "motion-tuner-core";
+import { createVibeset } from "vibeset-core";
+import type { Vibeset } from "vibeset-core";
 
-export interface MotionTunerContextValue {
-  tuner: MotionTuner;
+export interface VibesetContextValue {
+  tuner: Vibeset;
   enabled: boolean;
   portalRoot: HTMLElement | null;
   zIndexBase: number;
 }
 
-export const MotionTunerContext = createContext<MotionTunerContextValue | null>(null);
+export const VibesetContext = createContext<VibesetContextValue | null>(null);
 
-export interface MotionTunerProviderProps {
+export interface VibesetProviderProps {
   children: React.ReactNode;
   /** When false, hooks silently return defaults and no UI is rendered */
   enabled?: boolean;
@@ -23,15 +23,15 @@ export interface MotionTunerProviderProps {
   zIndexBase?: number;
 }
 
-export function MotionTunerProvider({
+export function VibesetProvider({
   children,
   enabled = true,
   portalRoot,
   zIndexBase = 99990,
-}: MotionTunerProviderProps) {
-  const tunerRef = useRef<MotionTuner | null>(null);
+}: VibesetProviderProps) {
+  const tunerRef = useRef<Vibeset | null>(null);
   if (!tunerRef.current) {
-    tunerRef.current = createMotionTuner();
+    tunerRef.current = createVibeset();
   }
 
   // Global Escape handler
@@ -53,7 +53,7 @@ export function MotionTunerProvider({
     return () => tuner.destroy();
   }, []);
 
-  const value = useMemo<MotionTunerContextValue>(
+  const value = useMemo<VibesetContextValue>(
     () => ({
       tuner: tunerRef.current!,
       enabled,
@@ -63,10 +63,10 @@ export function MotionTunerProvider({
     [enabled, portalRoot, zIndexBase],
   );
 
-  return React.createElement(MotionTunerContext.Provider, { value }, children);
+  return React.createElement(VibesetContext.Provider, { value }, children);
 }
 
 /** Internal hook — get context or null (for graceful degradation) */
-export function useMotionTunerContext(): MotionTunerContextValue | null {
-  return useContext(MotionTunerContext);
+export function useVibesetContext(): VibesetContextValue | null {
+  return useContext(VibesetContext);
 }

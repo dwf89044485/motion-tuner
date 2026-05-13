@@ -1,14 +1,14 @@
-// ── Motion Tuner React — useMotionTuner ─────────────────────────
+// ── Vibeset React — useVibeset ─────────────────────────
 
 import { useRef, useEffect, useState, useCallback } from "react";
-import type { MotionTargetDef } from "motion-tuner-core";
-import { useMotionTunerContext } from "./provider.js";
+import type { MotionTargetDef } from "vibeset-core";
+import { useVibesetContext } from "./provider.js";
 
-export interface UseMotionTunerOptions {
+export interface UseVibesetOptions {
   label?: string;
 }
 
-export interface UseMotionTunerResult {
+export interface UseVibesetResult {
   /** Attach to the component's root DOM element */
   ref: React.RefObject<HTMLElement | null>;
   /** Current motion config values — updates reactively */
@@ -28,12 +28,12 @@ export interface UseMotionTunerResult {
  * On mount: registers with core. On unmount: auto-unregisters.
  * Without Provider: silently returns defaults (zero-overhead).
  */
-export function useMotionTuner(
+export function useVibeset(
   id: string,
   schema: MotionTargetDef,
-  options?: UseMotionTunerOptions,
-): UseMotionTunerResult {
-  const ctx = useMotionTunerContext();
+  options?: UseVibesetOptions,
+): UseVibesetResult {
+  const ctx = useVibesetContext();
   const ref = useRef<HTMLElement | null>(null);
   const [config, setConfig] = useState<Record<string, number>>(
     () => schema.defaultConfig,

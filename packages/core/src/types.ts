@@ -1,4 +1,4 @@
-// ── Motion Tuner Core — Type Protocol ──────────────────────────
+// ── Vibeset Core — Type Protocol ──────────────────────────
 
 /** Single parameter definition */
 export interface MotionParamDef {

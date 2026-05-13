@@ -1,20 +1,20 @@
-// ── Motion Tuner React — Public API ─────────────────────────────
+// ── Vibeset React — Public API ─────────────────────────────
 
 export {
-  MotionTunerProvider,
-  MotionTunerContext,
-  useMotionTunerContext,
+  VibesetProvider,
+  VibesetContext,
+  useVibesetContext,
 } from "./provider.js";
 export type {
-  MotionTunerProviderProps,
-  MotionTunerContextValue,
+  VibesetProviderProps,
+  VibesetContextValue,
 } from "./provider.js";
 
-export { useMotionTuner } from "./use-motion-tuner.js";
+export { useVibeset } from "./use-vibeset.js";
 export type {
-  UseMotionTunerOptions,
-  UseMotionTunerResult,
-} from "./use-motion-tuner.js";
+  UseVibesetOptions,
+  UseVibesetResult,
+} from "./use-vibeset.js";
 
 export { useEditorController } from "./use-editor-controller.js";
 export type { EditorController } from "./use-editor-controller.js";

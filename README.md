@@ -1,4 +1,4 @@
-# Motion Tuner
+# Vibeset
 
 > 感觉即代码。
 
@@ -15,7 +15,7 @@
 开发：改哪个参数？快多少？弹性是哪个系数？
 ```
 
-Motion Tuner 把这条翻译链路砍掉：
+Vibeset 把这条翻译链路砍掉：
 
 ```
 设计师 → 拖感觉旋钮 → 实时 preview → 复制 TS patch → AI 改代码 → 上线
@@ -37,7 +37,7 @@ Motion Tuner 把这条翻译链路砍掉：
 ## 安装
 
 ```bash
-pnpm add motion-tuner-core motion-tuner-react motion-tuner-ui
+pnpm add vibeset-core vibeset-react vibeset-ui
 ```
 
 ---
@@ -47,7 +47,7 @@ pnpm add motion-tuner-core motion-tuner-react motion-tuner-ui
 ### 1. 定义 schema
 
 ```tsx
-import type { MotionTargetDef } from "motion-tuner-core";
+import type { MotionTargetDef } from "vibeset-core";
 
 const MY_MOTION: MotionTargetDef = {
   id: "my-card",
@@ -72,10 +72,10 @@ const MY_MOTION: MotionTargetDef = {
 ### 2. 在组件里用 hook
 
 ```tsx
-import { useMotionTuner } from "motion-tuner-react";
+import { useVibeset } from "vibeset-react";
 
 function MyCard() {
-  const { ref, config, previewState, lastCommit } = useMotionTuner("my-card", MY_MOTION);
+  const { ref, config, previewState, lastCommit } = useVibeset("my-card", MY_MOTION);
 
   // 用 config 驱动动效
   const style = {
@@ -90,15 +90,15 @@ function MyCard() {
 ### 3. 包裹 Provider + 挂 EditorRuntime
 
 ```tsx
-import { MotionTunerProvider } from "motion-tuner-react";
-import { EditorRuntime } from "motion-tuner-ui";
+import { VibesetProvider } from "vibeset-react";
+import { EditorRuntime } from "vibeset-ui";
 
 function App() {
   return (
-    <MotionTunerProvider enabled>
+    <VibesetProvider enabled>
       <MyCard />
       <EditorRuntime theme="dark" showKeyName={false} />
-    </MotionTunerProvider>
+    </VibesetProvider>
   );
 }
 ```
@@ -121,13 +121,13 @@ useEffect(() => {
 
 调到满意后点「复制代码」，拿到：
 ```ts
-// motion-tuner: 1 change(s) for "卡片动效" (id: "my-card")
+// vibeset: 1 change(s) for "卡片动效" (id: "my-card")
 {
   hoverStrength: 1.2,  // 悬浮强度 · was 0.8
 }
 ```
 
-把值更新到 `defaultConfig`，删掉 `<EditorRuntime />` 和 `<MotionTunerProvider>`，产品不留痕迹。
+把值更新到 `defaultConfig`，删掉 `<EditorRuntime />` 和 `<VibesetProvider>`，产品不留痕迹。
 
 ---
 
@@ -136,7 +136,7 @@ useEffect(() => {
 ```
 packages/
 ├── core/     零依赖纯逻辑（types / events / store / state-machine / export）
-├── react/    React bindings（Provider + useMotionTuner hook）
+├── react/    React bindings（Provider + useVibeset hook）
 └── ui/       可视化控件（Panel / Slider / Launcher / Overlay / EditorRuntime）
 examples/
 └── basic/    Vite 单屏 demo（翻牌大字 + ASCII 球 + 流程卡）
@@ -153,15 +153,15 @@ examples/
 pnpm install
 
 # 构建（按依赖顺序）
-pnpm --filter motion-tuner-core build
-pnpm --filter motion-tuner-react build
-pnpm --filter motion-tuner-ui build
+pnpm --filter vibeset-core build
+pnpm --filter vibeset-react build
+pnpm --filter vibeset-ui build
 
 # 跑 demo
 cd examples/basic && pnpm dev
 
 # 测试
-pnpm --filter motion-tuner-core test
+pnpm --filter vibeset-core test
 ```
 
 ---

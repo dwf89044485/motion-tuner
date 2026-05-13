@@ -1,11 +1,11 @@
-// ── Motion Tuner UI — Launcher ───────────────────────────────────
+// ── Vibeset UI — Launcher ───────────────────────────────────
 // Bottom-right floating button. Native drag, no framer-motion.
 // Shows mode-dependent content: entry point / selecting hint / editing controls.
 
 import React, { useState, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
-import type { EditorSessionMode } from "motion-tuner-core";
-import { getTokens, FONT, type MotionTunerTheme } from "./theme.js";
+import type { EditorSessionMode } from "vibeset-core";
+import { getTokens, FONT, type VibesetTheme } from "./theme.js";
 
 // ── Inline icons ────────────────────────────────────────────────
 
@@ -69,7 +69,7 @@ function IconRotate({ size = 13 }: { size?: number }) {
 
 export interface LauncherProps {
   mode: EditorSessionMode;
-  theme?: MotionTunerTheme;
+  theme?: VibesetTheme;
   changeCount?: number;
   onStartSelecting: () => void;
   onReselect: () => void;

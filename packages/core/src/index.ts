@@ -1,4 +1,4 @@
-// ── Motion Tuner Core — Public API ──────────────────────────────
+// ── Vibeset Core — Public API ──────────────────────────────
 
 import { createEventBus } from "./events.js";
 import { createRegistry } from "./registry.js";
@@ -46,11 +46,11 @@ export { createExportModule } from "./export.js";
 
 // ── Main factory ────────────────────────────────────────────────
 
-export interface MotionTunerOptions {
+export interface VibesetOptions {
   /** Reserved for future options */
 }
 
-export interface MotionTuner {
+export interface Vibeset {
   /** Event bus — subscribe to changes, mode transitions, etc. */
   bus: EventBus;
   /** Target registration */
@@ -82,7 +82,7 @@ export interface MotionTuner {
   destroy(): void;
 }
 
-export function createMotionTuner(_options?: MotionTunerOptions): MotionTuner {
+export function createVibeset(_options?: VibesetOptions): Vibeset {
   const bus = createEventBus();
   const registry = createRegistry(bus);
   const store = createConfigStore(bus, registry);

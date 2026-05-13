@@ -1,12 +1,12 @@
-// ── Motion Tuner UI — OverlayLayer ──────────────────────────────
+// ── Vibeset UI — OverlayLayer ──────────────────────────────
 // Selection-mode overlay. Highlights registered targets on hover,
 // selects on click. Pure CSS transitions, no framer-motion.
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { measure, type Bounds, ZERO_BOUNDS } from "motion-tuner-core";
-import { useMotionTunerContext } from "motion-tuner-react";
-import type { RegistryEntry } from "motion-tuner-core";
+import { measure, type Bounds, ZERO_BOUNDS } from "vibeset-core";
+import { useVibesetContext } from "vibeset-react";
+import type { RegistryEntry } from "vibeset-core";
 import { FONT } from "./theme.js";
 
 const PAD = 12;
@@ -36,7 +36,7 @@ export function OverlayLayer({
   portalRoot?: HTMLElement | null;
   zIndexBase?: number;
 }) {
-  const ctx = useMotionTunerContext();
+  const ctx = useVibesetContext();
   const [targets, setTargets] = useState<TargetRect[]>([]);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const rafRef = useRef<number>(0);

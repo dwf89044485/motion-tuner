@@ -6,5 +6,5 @@ export default defineConfig({
   dts: true,
   clean: true,
   sourcemap: true,
-  external: ["react", "react-dom", "motion-tuner-core"],
+  external: ["react", "react-dom", "vibeset-core"],
 });

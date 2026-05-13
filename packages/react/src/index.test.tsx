@@ -2,12 +2,12 @@ import React from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, act } from "@testing-library/react";
 import {
-  MotionTunerProvider,
-  useMotionTuner,
+  VibesetProvider,
+  useVibeset,
   useEditorController,
-  useMotionTunerContext,
+  useVibesetContext,
 } from "./index.js";
-import type { MotionTargetDef } from "motion-tuner-core";
+import type { MotionTargetDef } from "vibeset-core";
 
 const CARD_DEF: MotionTargetDef = {
   id: "card",
@@ -27,9 +27,9 @@ const CARD_DEF: MotionTargetDef = {
 function TestTarget({
   onResult,
 }: {
-  onResult: (r: ReturnType<typeof useMotionTuner>) => void;
+  onResult: (r: ReturnType<typeof useVibeset>) => void;
 }) {
-  const result = useMotionTuner("card", CARD_DEF);
+  const result = useVibeset("card", CARD_DEF);
   onResult(result);
   return React.createElement("div", { ref: result.ref }, "target");
 }
@@ -44,11 +44,11 @@ function TestController({
   return null;
 }
 
-describe("MotionTunerProvider", () => {
+describe("VibesetProvider", () => {
   it("renders children", () => {
     const { getByText } = render(
       React.createElement(
-        MotionTunerProvider,
+        VibesetProvider,
         null,
         React.createElement("div", null, "hello"),
       ),
@@ -59,11 +59,11 @@ describe("MotionTunerProvider", () => {
   it("provides context to children", () => {
     let ctx: any = null;
     function Reader() {
-      ctx = useMotionTunerContext();
+      ctx = useVibesetContext();
       return null;
     }
     render(
-      React.createElement(MotionTunerProvider, null, React.createElement(Reader)),
+      React.createElement(VibesetProvider, null, React.createElement(Reader)),
     );
     expect(ctx).not.toBeNull();
     expect(ctx.tuner).toBeDefined();
@@ -74,7 +74,7 @@ describe("MotionTunerProvider", () => {
   it("enabled=false still renders children", () => {
     const { getByText } = render(
       React.createElement(
-        MotionTunerProvider,
+        VibesetProvider,
         { enabled: false },
         React.createElement("div", null, "child"),
       ),
@@ -83,7 +83,7 @@ describe("MotionTunerProvider", () => {
   });
 });
 
-describe("useMotionTuner", () => {
+describe("useVibeset", () => {
   it("returns default config without Provider", () => {
     let result: any;
     render(
@@ -99,7 +99,7 @@ describe("useMotionTuner", () => {
     let result: any;
     render(
       React.createElement(
-        MotionTunerProvider,
+        VibesetProvider,
         null,
         React.createElement(TestTarget, {
           onResult: (r: any) => { result = r; },
@@ -114,13 +114,13 @@ describe("useMotionTuner", () => {
     let ctx: any;
 
     function Reader() {
-      ctx = useMotionTunerContext();
+      ctx = useVibesetContext();
       return null;
     }
 
     const { rerender } = render(
       React.createElement(
-        MotionTunerProvider,
+        VibesetProvider,
         null,
         React.createElement(Reader),
         React.createElement(TestTarget, {
@@ -142,13 +142,13 @@ describe("useMotionTuner", () => {
     let ctx: any;
 
     function Reader() {
-      ctx = useMotionTunerContext();
+      ctx = useVibesetContext();
       return null;
     }
 
     render(
       React.createElement(
-        MotionTunerProvider,
+        VibesetProvider,
         null,
         React.createElement(Reader),
         React.createElement(TestTarget, {
@@ -188,13 +188,13 @@ describe("useEditorController", () => {
     let ctx: any;
 
     function Reader() {
-      ctx = useMotionTunerContext();
+      ctx = useVibesetContext();
       return null;
     }
 
     render(
       React.createElement(
-        MotionTunerProvider,
+        VibesetProvider,
         null,
         React.createElement(Reader),
         React.createElement(TestController, {
@@ -221,13 +221,13 @@ describe("useEditorController", () => {
     let ctx: any;
 
     function Reader() {
-      ctx = useMotionTunerContext();
+      ctx = useVibesetContext();
       return null;
     }
 
     render(
       React.createElement(
-        MotionTunerProvider,
+        VibesetProvider,
         null,
         React.createElement(Reader),
         React.createElement(TestTarget, { onResult: () => {} }),

@@ -1,7 +1,7 @@
-// ── Motion Tuner UI — Theme ─────────────────────────────────────
+// ── Vibeset UI — Theme ─────────────────────────────────────
 // Default token set. All CSS classes use `.mt-*` namespace.
 
-export type MotionTunerTheme = "light" | "dark";
+export type VibesetTheme = "light" | "dark";
 
 export interface ThemeTokens {
   panelBg: string;
@@ -81,7 +81,7 @@ export const LIGHT_TOKENS: ThemeTokens = {
   codeBg: "rgba(0,0,0,0.025)",
 };
 
-export function getTokens(theme: MotionTunerTheme): ThemeTokens {
+export function getTokens(theme: VibesetTheme): ThemeTokens {
   return theme === "dark" ? DARK_TOKENS : LIGHT_TOKENS;
 }
 
@@ -103,7 +103,7 @@ export const STATE_SELECTOR_LIGHT = {
   itemActiveText: "#FFFFFF",
 };
 
-export function getStateSelectorTokens(theme: MotionTunerTheme) {
+export function getStateSelectorTokens(theme: VibesetTheme) {
   return theme === "dark" ? STATE_SELECTOR_DARK : STATE_SELECTOR_LIGHT;
 }
 

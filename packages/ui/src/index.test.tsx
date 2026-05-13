@@ -2,7 +2,7 @@ import React from "react";
 import { describe, it, expect } from "vitest";
 import { render } from "@testing-library/react";
 import { MotionPanel, Slider, XYPad, getTokens, DARK_TOKENS, LIGHT_TOKENS, EditorRuntime, Launcher } from "./index.js";
-import type { MotionParamDef } from "motion-tuner-core";
+import type { MotionParamDef } from "vibeset-core";
 
 const TOKENS = getTokens("dark");
 
@@ -155,7 +155,7 @@ describe("Launcher", () => {
         onExitEditor: () => {},
       }),
     );
-    expect(getByText("Motion Tuner")).toBeDefined();
+    expect(getByText("Vibeset")).toBeDefined();
   });
 
   it("renders in selecting mode", () => {

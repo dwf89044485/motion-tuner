@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion } from "framer-motion";
-import type { MotionTargetDef } from "motion-tuner-core";
-import { MotionTunerProvider, useMotionTuner } from "motion-tuner-react";
-import { EditorRuntime } from "motion-tuner-ui";
+import type { MotionTargetDef } from "vibeset-core";
+import { VibesetProvider, useVibeset } from "vibeset-react";
+import { EditorRuntime } from "vibeset-ui";
 
 // ══════════════════════════════════════════════════════════════════
-// Motion Tuner · Basic Example · 单屏 demo
-// 两个酷炫的可调动效，体现 motion-tuner 的真实价值：
+// Vibeset · Basic Example · 单屏 demo
+// 两个酷炫的可调动效，体现 vibeset 的真实价值：
 //   ① 翻牌大字（hero-flap）—— 多维耦合的 stagger 翻牌系统
 //   ② ASCII 球体（ascii-sphere）—— 多轴旋转 + 字符密度 + 深度映射
-// 这些动效"嘴说不清"，必须靠面板调，才显出 motion-tuner 的 raison d'être。
+// 这些动效"嘴说不清"，必须靠面板调，才显出 vibeset 的 raison d'être。
 // ══════════════════════════════════════════════════════════════════
 
 // ── Design tokens ────────────────────────────────────────────────
@@ -284,7 +284,7 @@ function FlipChar({
 }
 
 function FlipTitle({ text }: { text: string }) {
-  const { ref, config, lastCommit, previewState } = useMotionTuner(
+  const { ref, config, lastCommit, previewState } = useVibeset(
     "hero-flap",
     HERO_FLAP_MOTION,
   );
@@ -400,7 +400,7 @@ const SPHERE_MOTION: MotionTargetDef = {
 };
 
 function AsciiSphere({ size }: { size: number }) {
-  const { ref, config, previewState } = useMotionTuner(
+  const { ref, config, previewState } = useVibeset(
     "ascii-sphere",
     SPHERE_MOTION,
   );
@@ -699,7 +699,7 @@ function FlowCard({
 }
 
 function FlowFooter() {
-  const { ref, config, previewState, lastCommit } = useMotionTuner("flow-cards", FLOW_CARDS_MOTION);
+  const { ref, config, previewState, lastCommit } = useVibeset("flow-cards", FLOW_CARDS_MOTION);
 
   // previewState → forceHovered
   // "hover" → 所有卡锁定 hover
@@ -789,7 +789,7 @@ export function App() {
   const sphereSize = Math.floor(Math.max(SPHERE_MIN, Math.min(SPHERE_MAX, naturalSphereSize)));
 
   return (
-    <MotionTunerProvider enabled>
+    <VibesetProvider enabled>
       <div
         style={{
           width: "100vw",
@@ -911,6 +911,6 @@ export function App() {
       </div>
 
       <EditorRuntime theme="dark" showKeyName={false} />
-    </MotionTunerProvider>
+    </VibesetProvider>
   );
 }

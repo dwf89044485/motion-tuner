@@ -1,8 +1,8 @@
-// ── Motion Tuner React — useEditorController ────────────────────
+// ── Vibeset React — useEditorController ────────────────────
 
 import { useState, useEffect, useCallback } from "react";
-import type { EditorSessionMode, ChangeSet } from "motion-tuner-core";
-import { useMotionTunerContext } from "./provider.js";
+import type { EditorSessionMode, ChangeSet } from "vibeset-core";
+import { useVibesetContext } from "./provider.js";
 
 export interface EditorController {
   /** Enter selecting mode */
@@ -38,7 +38,7 @@ const NOOP_CONTROLLER: EditorController = {
  * Without Provider: returns a no-op controller.
  */
 export function useEditorController(): EditorController {
-  const ctx = useMotionTunerContext();
+  const ctx = useVibesetContext();
   const [mode, setMode] = useState<EditorSessionMode>("idle");
   const [changeCount, setChangeCount] = useState(0);
 

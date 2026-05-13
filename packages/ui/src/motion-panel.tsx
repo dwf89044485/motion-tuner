@@ -1,17 +1,17 @@
-// ── Motion Tuner UI — MotionPanel ───────────────────────────────
+// ── Vibeset UI — MotionPanel ───────────────────────────────
 // Parameter editing panel. Pure CSS transitions, no framer-motion.
 // Renders via portal. Draggable via native mousedown.
 
 import React, { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import type { MotionParamDef, MotionStateDef } from "motion-tuner-core";
+import type { MotionParamDef, MotionStateDef } from "vibeset-core";
 import { Slider } from "./slider.js";
 import { XYPad } from "./xy-pad.js";
 import {
   getTokens,
   getStateSelectorTokens,
   FONT,
-  type MotionTunerTheme,
+  type VibesetTheme,
 } from "./theme.js";
 
 export interface MotionPanelProps {
@@ -26,7 +26,7 @@ export interface MotionPanelProps {
   selectedState?: string;
   onStateChange?: (state: string) => void;
   onSliderCommit?: (key: string, value: number) => void;
-  theme?: MotionTunerTheme;
+  theme?: VibesetTheme;
   onClose: () => void;
   /** Portal mount point. Default: document.body */
   portalRoot?: HTMLElement | null;
@@ -222,7 +222,7 @@ export function MotionPanel({
       return `  ${p.key}: ${newV},  // ${p.label} · was ${oldV}`;
     });
     const text =
-      `// motion-tuner: ${changed.length} change(s) for "${targetLabel}"${idLine}\n` +
+      `// vibeset: ${changed.length} change(s) for "${targetLabel}"${idLine}\n` +
       `// Apply to defaultConfig (find the MotionTargetDef whose id matches above):\n` +
       `{\n${lines.join("\n")}\n}\n`;
 

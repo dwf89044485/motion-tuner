@@ -1,4 +1,4 @@
-// ── Motion Tuner UI — Slider ────────────────────────────────────
+// ── Vibeset UI — Slider ────────────────────────────────────
 // Native <input type="range"> with custom CSS.
 // No framer-motion. Supports drag-to-adjust on the value display.
 

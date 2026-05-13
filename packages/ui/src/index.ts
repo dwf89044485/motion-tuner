@@ -1,4 +1,4 @@
-// ── Motion Tuner UI — Public API ────────────────────────────────
+// ── Vibeset UI — Public API ────────────────────────────────
 
 export { Slider } from "./slider.js";
 export type { SliderProps } from "./slider.js";
@@ -17,7 +17,7 @@ export {
   FONT,
   MONO_FONT,
 } from "./theme.js";
-export type { MotionTunerTheme, ThemeTokens } from "./theme.js";
+export type { VibesetTheme, ThemeTokens } from "./theme.js";
 
 export { OverlayLayer } from "./overlay-layer.js";
 

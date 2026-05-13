@@ -1,4 +1,4 @@
-// ── Motion Tuner Core — Export ───────────────────────────────────
+// ── Vibeset Core — Export ───────────────────────────────────
 
 import type { ChangeSet, ParamChange, TargetChanges } from "./types.js";
 import type { TargetRegistry } from "./registry.js";

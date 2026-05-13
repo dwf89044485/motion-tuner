@@ -1,4 +1,4 @@
-// ── Motion Tuner Core — ConfigStore ─────────────────────────────
+// ── Vibeset Core — ConfigStore ─────────────────────────────
 
 import type { EventBus } from "./events.js";
 import type { TargetRegistry } from "./registry.js";

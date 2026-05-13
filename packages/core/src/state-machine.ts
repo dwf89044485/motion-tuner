@@ -1,4 +1,4 @@
-// ── Motion Tuner Core — EditorStateMachine ──────────────────────
+// ── Vibeset Core — EditorStateMachine ──────────────────────
 
 import type { EditorSessionMode } from "./types.js";
 import type { EventBus } from "./events.js";

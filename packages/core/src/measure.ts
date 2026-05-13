@@ -1,4 +1,4 @@
-// ── Motion Tuner Core — Measure ─────────────────────────────────
+// ── Vibeset Core — Measure ─────────────────────────────────
 // Migrated from wedata/components/ui/motion-target-overlay.tsx:36-96
 // Pure DOM — zero React dependency.
 

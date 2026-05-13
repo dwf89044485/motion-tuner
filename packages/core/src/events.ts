@@ -1,4 +1,4 @@
-// ── Motion Tuner Core — EventBus ────────────────────────────────
+// ── Vibeset Core — EventBus ────────────────────────────────
 
 import type { EditorSessionMode, MotionTargetDef } from "./types.js";
 

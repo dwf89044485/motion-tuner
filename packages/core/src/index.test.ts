@@ -1,9 +1,9 @@
 import { describe, it, expect, vi } from "vitest";
-import { createMotionTuner } from "./index.js";
+import { createVibeset } from "./index.js";
 
-describe("createMotionTuner", () => {
+describe("createVibeset", () => {
   it("creates an instance with all sub-modules", () => {
-    const mt = createMotionTuner();
+    const mt = createVibeset();
     expect(mt.bus).toBeDefined();
     expect(mt.registry).toBeDefined();
     expect(mt.store).toBeDefined();
@@ -12,7 +12,7 @@ describe("createMotionTuner", () => {
   });
 
   it("register + selectTarget + config workflow", () => {
-    const mt = createMotionTuner();
+    const mt = createVibeset();
 
     const unsub = mt.register(
       {
@@ -53,7 +53,7 @@ describe("createMotionTuner", () => {
   });
 
   it("destroy clears all event listeners", () => {
-    const mt = createMotionTuner();
+    const mt = createVibeset();
     const fn = vi.fn();
     mt.bus.on("change", fn);
     mt.destroy();
@@ -62,7 +62,7 @@ describe("createMotionTuner", () => {
   });
 
   it("full round-trip: register → select → edit → export → reset → export", () => {
-    const mt = createMotionTuner();
+    const mt = createVibeset();
 
     mt.register(
       {
