@@ -9,7 +9,13 @@
     "url": "https://github.com/dwf89044485/motion-tuner.git",
     "directory": "packages/react"
   },
-  "keywords": ["motion", "animation", "tuner", "react", "hook"],
+  "keywords": [
+    "motion",
+    "animation",
+    "tuner",
+    "react",
+    "hook"
+  ],
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -50,5 +56,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
