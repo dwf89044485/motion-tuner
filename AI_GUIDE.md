@@ -1,0 +1,140 @@
+# Vibemotion · AI 接入指引
+
+> 本文件随 npm 包发布，供项目 AI（Cursor / Codebuddy / Claude 等）读取并执行接入。
+
+## 你的任务
+
+帮用户把 vibemotion 接入当前项目。vibemotion 是一个嵌入式动效调参面板——用户拖感觉旋钮调参数，调完复制参数改代码，面板移除不留痕迹。
+
+## 接入流程
+
+### 1. 问用户
+
+问：「你想把哪个组件或动效接入 vibemotion 调参面板？」
+
+等用户指定后，读那个组件的源码，继续下一步。
+
+### 2. 参数提炼
+
+读组件源码，找出所有可调的动效参数（duration, easing, translateY, scale, opacity, blur, stagger 等）。然后做一层提炼：
+
+- **过滤**：去掉用户感知不到差别的底层数学量（比如纯内部索引、中间计算变量）
+- **聚合**：可合并的参数合成一根旋钮（比如 translateY + scale + blur → "悬浮强度"）
+- **命名**：每个旋钮给中文 label（"翻牌速度"不是 "flipInterval"）
+- **区间**：min/max 只给有效感知区间，不给数学全量程。极值不能导致视觉崩溃
+
+提炼完毕后呈现给用户确认：
+
+```
+建议暴露以下 N 个感觉旋钮：
+
+1. 翻牌速度 — 控制每次翻页的快慢
+2. 悬浮强度 — 悬浮时的抬升感
+3. 字符错开 — 出场时间差，影响节奏感
+...
+N+1. 全部（含以上 + 底层参数）
+
+去掉哪个？或直接确认。
+```
+
+默认推荐就是 1-N，用户只需确认或做减法。
+
+### 3. 写接入代码
+
+根据项目技术栈选择方式。
+
+#### 通用方式（任何框架 / 原生 HTML）
+
+```js
+import { createVibeset } from "vibemotion";
+
+// 创建 store
+const store = createVibeset();
+
+// 注册 target
+store.register({
+  id: "组件id",
+  label: "中文名称",
+  schema: [
+    { key: "speed", label: "动画速度", min: 0.1, max: 2, step: 0.05, group: "基础" },
+    // ... 用户确认的旋钮
+  ],
+  defaultConfig: { speed: 0.5 },
+  states: [
+    { value: "default", label: "默认" },
+    { value: "hover", label: "Hover" },
+  ],
+  defaultState: "default",
+}, document.getElementById("目标元素"));
+
+// 监听参数变更 → 更新动效渲染
+store.bus.on("change", (d) => {
+  if (d.targetId === "组件id") {
+    const config = store.store.getConfig("组件id");
+    // 用 config 里的值驱动动效
+  }
+});
+
+// 监听松手 → 触发 preview（必须接！）
+store.bus.on("param-commit", (d) => {
+  if (d.targetId === "组件id") {
+    // 走一遍动效 preview（比如 default → hover → 恢复）
+  }
+});
+
+// 挂载编辑器面板
+const editor = document.createElement("vibeset-editor");
+editor.theme = "dark";
+editor.store = store;
+document.body.appendChild(editor);
+```
+
+#### React 方式
+
+```tsx
+import { VibesetProvider, useVibeset } from "vibemotion/react";
+
+// App 层包裹 Provider
+function App() {
+  return (
+    <VibesetProvider enabled theme="dark">
+      <YourComponent />
+    </VibesetProvider>
+  );
+}
+
+// 组件里用 hook
+function YourComponent() {
+  const { ref, config, previewState, lastCommit } = useVibeset("组件id", schema);
+
+  // config 是响应式的，直接用来驱动渲染
+  // lastCommit 变化时触发一次 preview 动画（必须接！）
+
+  return <div ref={ref} data-motion-target-id="组件id">...</div>;
+}
+```
+
+### 4. param-commit 必须接
+
+这是最容易遗漏的一步。用户松手后必须走一遍 preview 动画（比如 default → hover → 恢复），否则用户调了参数看不到效果，产品体验是坏的。
+
+写完后立即验证：调参 → 松手 → preview 动了没。没动就是漏了。
+
+### 5. 自检
+
+接完后验证以下几条，全过才算完成：
+
+- [ ] 每个 slider 调到极值不崩、不变形
+- [ ] 松手后 preview 动画触发
+- [ ] 所有 label 是中文，无 key name 泄露
+- [ ] 删掉 vibemotion 相关代码后组件正常渲染（可拆除）
+
+### 6. 告诉用户收尾方式
+
+调完参数后：
+1. 点面板里的「复制代码」按钮
+2. 拿到参数 patch（带 target id 的 TS 对象）
+3. 把值更新到 defaultConfig
+4. 删掉 vibemotion 相关代码
+
+产品不留痕迹。
