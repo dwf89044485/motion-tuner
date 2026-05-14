@@ -1,6 +1,9 @@
 // ── Vibeset React Binding ────────────────────────────────────
 // Thin bridge: React Context → core store → <vibeset-editor> Web Component
 
+// Side-effect: register all Web Components so <vibeset-editor> is available
+import "../components/index.js";
+
 import {
   createContext,
   useContext,

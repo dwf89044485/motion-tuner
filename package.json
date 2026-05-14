@@ -1,6 +1,6 @@
 {
   "name": "vibemotion",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Embedded motion tuning SDK — framework-agnostic Web Components for real-time animation editing",
   "license": "MIT",
   "author": "Joseph Deng",
