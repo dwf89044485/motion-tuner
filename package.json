@@ -1,6 +1,6 @@
 {
   "name": "vibemotion",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Embedded motion tuning SDK — framework-agnostic Web Components for real-time animation editing",
   "license": "MIT",
   "author": "Joseph Deng",
@@ -31,7 +31,8 @@
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "AI_GUIDE.md"
+    "AI_GUIDE.md",
+    "motion-connect"
   ],
   "scripts": {
     "build": "tsup",

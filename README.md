@@ -14,11 +14,17 @@
 
 ## 接入
 
-把下面这段发给你项目的 AI（Cursor / Codebuddy / Claude 等）：
+```bash
+pnpm add vibemotion
+```
+
+然后把下面这段发给你项目的 AI（Cursor / Codebuddy / Claude 等）：
 
 ```
-安装 vibemotion（pnpm add vibemotion），然后读 node_modules/vibemotion/AI_GUIDE.md，按里面的流程帮我接入。
+读 node_modules/vibemotion/AI_GUIDE.md，按里面的流程帮我把动效接入 vibemotion 调参面板。
 ```
+
+或者，如果你的 AI 支持 skill，直接把 `node_modules/vibemotion/motion-connect` 目录加到项目的 skill 列表里，然后跟 AI 说「帮我接入调参面板」。
 
 ---
 
